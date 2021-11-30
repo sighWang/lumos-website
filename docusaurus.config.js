@@ -56,7 +56,7 @@ const config = {
             label: 'Tutorial',
           },
           {to: '/blog', label: 'Blog', position: 'left'},
-          {to: '/tools', label: 'Tools', position: 'left'},
+          // {to: '/tools', label: 'Tools', position: 'left'},
           { href: 'https://nervosnetwork.github.io/lumos/globals.html', label: 'API', position: 'left'},
           {
             href: 'https://github.com/facebook/docusaurus',
