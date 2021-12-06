@@ -6,9 +6,14 @@ import styled from "styled-components";
 import ExecutionEnvironment from "@docusaurus/ExecutionEnvironment";
 let config;
 let helpers;
+declare global {
+  interface Window {
+    lumos?: any;
+  }
+}
 if (ExecutionEnvironment.canUseDOM) {
-  const lumos = require("../../static/lumos.umd.js");
-  console.log(lumos)
+  require("../../static/lumos.umd.js");
+  const lumos = window.lumos;
   config = lumos.config;
   helpers = lumos.helpers;
 }

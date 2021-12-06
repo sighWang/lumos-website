@@ -6,9 +6,9 @@ import styled from "styled-components";
 import ExecutionEnvironment from "@docusaurus/ExecutionEnvironment";
 let config;
 let helpers;
-let lumos;
 if (ExecutionEnvironment.canUseDOM) {
-  lumos = require("../../static/lumos.umd.js");
+  require("../../static/lumos.umd.js");
+  const lumos = window.lumos;
   config = lumos.config;
   helpers = lumos.helpers;
 }
@@ -28,7 +28,6 @@ export const ScriptToAddress = () => {
   const [testnetAddress, setTestnetAddress] = useState("");
   const scriptToAddressForm = useFormik({
     async onSubmit(val) {
-      console.log(lumos)
       config.initializeConfig(config.predefined.AGGRON4);
       const address = helpers.scriptToAddress(val);
       setTestnetAddress(address);
