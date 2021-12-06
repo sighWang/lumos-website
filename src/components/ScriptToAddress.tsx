@@ -4,8 +4,19 @@ import { useFormik } from "formik";
 import "antd/dist/antd.css";
 import styled from "styled-components";
 import ExecutionEnvironment from "@docusaurus/ExecutionEnvironment";
+declare global {
+    interface Window {
+    lumos?: any;
+  }
+}
 
-
+let config;
+let helpers;
+if (ExecutionEnvironment.canUseDOM) {
+  require("./lumos.umd.js", );
+  config = window.lumos.config;
+  helpers = window.lumos.helpers;
+}
 const StyleWrapper = styled.div`
   padding: 20px;
   .resultForm {
