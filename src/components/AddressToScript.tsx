@@ -8,6 +8,7 @@ let config;
 let helpers;
 if (ExecutionEnvironment.canUseDOM) {
   const lumos = require("./lumos.umd.js");
+  console.log(lumos)
   config = lumos.config;
   helpers = lumos.helpers;
 }
