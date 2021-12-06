@@ -4,18 +4,12 @@ import { useFormik } from "formik";
 import "antd/dist/antd.css";
 import styled from "styled-components";
 import ExecutionEnvironment from "@docusaurus/ExecutionEnvironment";
-declare global {
-    interface Window {
-    lumos?: any;
-  }
-}
-
 let config;
 let helpers;
 if (ExecutionEnvironment.canUseDOM) {
-  require("./lumos.umd.js", );
-  config = window.lumos.config;
-  helpers = window.lumos.helpers;
+  const lumos = require("../../static/lumos.umd.js");
+  config = lumos.config;
+  helpers = lumos.helpers;
 }
 const StyleWrapper = styled.div`
   padding: 20px;
@@ -29,17 +23,8 @@ const StyleWrapper = styled.div`
   }
 `;
 export const ScriptToAddress = () => {
-  let config;
-  let helpers;
   const [mainnetAddress, setMainnetAddress] = useState("");
   const [testnetAddress, setTestnetAddress] = useState("");
-  useEffect(() => {
-    if (ExecutionEnvironment.canUseDOM) {
-      const lumos = require("./lumos.umd.js");
-      config = lumos.config;
-      helpers = lumos.helpers;
-  }
-  }, [])
   const scriptToAddressForm = useFormik({
     async onSubmit(val) {
       config.initializeConfig(config.predefined.AGGRON4);
