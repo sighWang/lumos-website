@@ -31495,7 +31495,7 @@
                 return this.view.getBigUint64(0, !1);
               }
               toLittleEndianBigUint64() {
-                return this.view.getUint64(0, !0);
+                return this.view.getBigUint64(0, !0);
               }
               static size() {
                 return 8;
@@ -31598,7 +31598,7 @@
               }
               validate(t = !1) {
                 const e = n(this.view, 0, !0);
-                for (let t = 0; t < len(e) - 1; t++)
+                for (let t = 0; t < e.length - 1; t++)
                   new p(this.view.buffer.slice(e[t], e[t + 1]), {
                     validate: !1,
                   }).validate();
@@ -31697,7 +31697,7 @@
               }
               validate(t = !1) {
                 const e = n(this.view, 0, !0);
-                for (let t = 0; t < len(e) - 1; t++)
+                for (let t = 0; t < e.length - 1; t++)
                   new rt(this.view.buffer.slice(e[t], e[t + 1]), {
                     validate: !1,
                   }).validate();
@@ -31726,7 +31726,7 @@
               }
               validate(t = !1) {
                 const e = n(this.view, 0, !0);
-                for (let t = 0; t < len(e) - 1; t++)
+                for (let t = 0; t < e.length - 1; t++)
                   new J(this.view.buffer.slice(e[t], e[t + 1]), {
                     validate: !1,
                   }).validate();
@@ -31851,7 +31851,7 @@
               }
               validate(t = !1) {
                 const e = n(this.view, 0, !0);
-                for (let t = 0; t < len(e) - 1; t++)
+                for (let t = 0; t < e.length - 1; t++)
                   new F(this.view.buffer.slice(e[t], e[t + 1]), {
                     validate: !1,
                   }).validate();
@@ -32253,7 +32253,7 @@
                   { validate: !1 }
                 );
               }
-              getUnclesHash() {
+              getExtraHash() {
                 return new l(
                   this.view.buffer.slice(
                     0 +
@@ -32317,7 +32317,7 @@
                   this.getParentHash().validate(t),
                   this.getTransactionsRoot().validate(t),
                   this.getProposalsHash().validate(t),
-                  this.getUnclesHash().validate(t),
+                  this.getExtraHash().validate(t),
                   this.getDao().validate(t);
               }
               static size() {
@@ -32388,7 +32388,7 @@
                     l.size()
                 ),
                 e.set(
-                  new Uint8Array(d(t.uncles_hash)),
+                  new Uint8Array(d(t.extra_hash)),
                   0 +
                     s.size() +
                     s.size() +
@@ -32515,6 +32515,54 @@
                 return new x(this.view.buffer.slice(t, e), { validate: !1 });
               }
             }),
+              (t.BlockV1 = class {
+                constructor(t, { validate: e = !0 } = {}) {
+                  (this.view = new DataView(i(t))), e && this.validate();
+                }
+                validate(t = !1) {
+                  const e = n(this.view, 0, !0);
+                  new tt(this.view.buffer.slice(e[0], e[1]), {
+                    validate: !1,
+                  }).validate(),
+                    new E(this.view.buffer.slice(e[1], e[2]), {
+                      validate: !1,
+                    }).validate(),
+                    new k(this.view.buffer.slice(e[2], e[3]), {
+                      validate: !1,
+                    }).validate(),
+                    new x(this.view.buffer.slice(e[3], e[4]), {
+                      validate: !1,
+                    }).validate(),
+                    new p(this.view.buffer.slice(e[4], e[5]), {
+                      validate: !1,
+                    }).validate();
+                }
+                getHeader() {
+                  const t = this.view.getUint32(4, !0),
+                    e = this.view.getUint32(8, !0);
+                  return new tt(this.view.buffer.slice(t, e), { validate: !1 });
+                }
+                getUncles() {
+                  const t = this.view.getUint32(8, !0),
+                    e = this.view.getUint32(12, !0);
+                  return new E(this.view.buffer.slice(t, e), { validate: !1 });
+                }
+                getTransactions() {
+                  const t = this.view.getUint32(12, !0),
+                    e = this.view.getUint32(16, !0);
+                  return new k(this.view.buffer.slice(t, e), { validate: !1 });
+                }
+                getProposals() {
+                  const t = this.view.getUint32(16, !0),
+                    e = this.view.getUint32(20, !0);
+                  return new x(this.view.buffer.slice(t, e), { validate: !1 });
+                }
+                getExtension() {
+                  const t = this.view.getUint32(20, !0),
+                    e = this.view.byteLength;
+                  return new p(this.view.buffer.slice(t, e), { validate: !1 });
+                }
+              }),
               (t.Byte32 = l),
               (t.Byte32Vec = _),
               (t.Bytes = p),
@@ -32565,6 +32613,17 @@
                   e.push(C(t.uncles)),
                   e.push(B(t.transactions)),
                   e.push(D(t.proposals)),
+                  o(e)
+                );
+              }),
+              (t.SerializeBlockV1 = function (t) {
+                const e = [];
+                return (
+                  e.push(et(t.header)),
+                  e.push(C(t.uncles)),
+                  e.push(B(t.transactions)),
+                  e.push(D(t.proposals)),
+                  e.push(g(t.extension)),
                   o(e)
                 );
               }),
@@ -32682,9 +32741,17 @@
               };
             },
             DenormalizeScript: function (t) {
+              const e = t.getHashType();
               return {
                 code_hash: new i(t.getCodeHash().raw()).serializeJson(),
-                hash_type: 0 === t.getHashType() ? "data" : "type",
+                hash_type:
+                  0 === e
+                    ? "data"
+                    : 1 === e
+                    ? "type"
+                    : 2 === e
+                    ? "data1"
+                    : void 0,
                 args: new i(t.getArgs().raw()).serializeJson(),
               };
             },
@@ -33057,7 +33124,7 @@
             return e.update(t), e.digestReader();
           }
           const l = BigInt(0),
-            d = BigInt(2) ** BigInt(128) - BigInt(1);
+            d = 340282366920938463463374607431768211455n;
           t.exports = {
             CKBHasher: f,
             ckbHash: c,

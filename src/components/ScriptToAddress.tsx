@@ -3,13 +3,13 @@ import { Button, Form, Input, Radio, Typography } from "antd";
 import { useFormik } from "formik";
 import "antd/dist/antd.css";
 import styled from "styled-components";
-import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment';
+import ExecutionEnvironment from "@docusaurus/ExecutionEnvironment";
 let config;
 let helpers;
 if (ExecutionEnvironment.canUseDOM) {
-  const lumos = require('./lumos.umd.js');
-  config = lumos.config;
-  helpers = lumos.helpers;
+    const lumos = require("./lumos.umd.js");
+    config = lumos.config;
+    helpers = lumos.helpers;
 }
 
 const StyleWrapper = styled.div`

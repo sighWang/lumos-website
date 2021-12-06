@@ -3,21 +3,21 @@ import { Button, Form, Input, Typography } from "antd";
 import { useFormik } from "formik";
 import "antd/dist/antd.css";
 import styled from "styled-components";
-import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment';
+import ExecutionEnvironment from "@docusaurus/ExecutionEnvironment";
 let config;
 let helpers;
 if (ExecutionEnvironment.canUseDOM) {
-  const lumos = require('./lumos.umd.js');
+  const lumos = require("./lumos.umd.js");
   config = lumos.config;
   helpers = lumos.helpers;
 }
 
 export type HashType = "type" | "data";
 export interface Script {
-    code_hash: string;
-    hash_type: HashType;
-    args: string;
-  }
+  code_hash: string;
+  hash_type: HashType;
+  args: string;
+}
 type AddressType = "Mainnet" | "Testnet";
 
 const StyleWrapper = styled.div`
