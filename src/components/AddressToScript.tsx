@@ -82,6 +82,10 @@ export const AddressToScript = () => {
     },
   });
 
+  const getLockName = (script) => {
+    return config.helpers.nameOfScript(script)
+  }
+
   return (
     <StyleWrapper>
       <Form name="basic">
@@ -127,6 +131,13 @@ export const AddressToScript = () => {
             <Typography.Text copyable>{addressType}</Typography.Text>
           )}
         </Form.Item>
+        {
+          script && getLockName(script) &&
+          <Form.Item label="lock name">
+          <Typography.Text copyable>{getLockName(script)}</Typography.Text>
+        </Form.Item>
+        }
+
       </Form>
     </StyleWrapper>
   );
