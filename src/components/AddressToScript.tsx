@@ -12,7 +12,7 @@ declare global {
   }
 }
 if (ExecutionEnvironment.canUseDOM) {
-  require("@ckb-lumos/lumos/lib/lumos.umd.js");
+  require("../../static/lumos.umd.js");
   const lumos = require("@ckb-lumos/lumos");
   config = lumos.config;
   helpers = lumos.helpers;
@@ -83,8 +83,8 @@ export const AddressToScript = () => {
   });
 
   const getLockName = (script) => {
-    return config.helpers.nameOfScript(script)
-  }
+    return config.helpers.nameOfScript(script);
+  };
 
   return (
     <StyleWrapper>
@@ -131,13 +131,11 @@ export const AddressToScript = () => {
             <Typography.Text copyable>{addressType}</Typography.Text>
           )}
         </Form.Item>
-        {
-          script && getLockName(script) &&
+        {script && getLockName(script) && (
           <Form.Item label="lock name">
-          <Typography.Text copyable>{getLockName(script)}</Typography.Text>
-        </Form.Item>
-        }
-
+            <Typography.Text copyable>{getLockName(script)}</Typography.Text>
+          </Form.Item>
+        )}
       </Form>
     </StyleWrapper>
   );
