@@ -7,7 +7,7 @@ import ExecutionEnvironment from "@docusaurus/ExecutionEnvironment";
 let config;
 let helpers;
 if (ExecutionEnvironment.canUseDOM) {
-  const lumos = require("@ckb-lumos/lumos");
+  const lumos = window.lumos;
   config = lumos.config;
   helpers = lumos.helpers;
 }
