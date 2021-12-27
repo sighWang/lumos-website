@@ -8,6 +8,11 @@ import { ScriptToAddress } from "./ScriptToAddress";
 
 const StyleWrapper = styled.div`
   padding: 20px;
+  display: flex;
+  justify-content: center;
+  .ant-tabs {
+    min-width: 900px;
+  }
 `;
 
 export const Address = () => {
