@@ -14,7 +14,7 @@ export const Address = () => {
   return (
     <StyleWrapper>
       <Tabs defaultActiveKey="1">
-        <TabPane tab="Address to Script" key="1">
+        <TabPane tab="Address to Script/new Address" key="1">
           <AddressToScript></AddressToScript>
         </TabPane>
         <TabPane tab="Script to Address" key="2">

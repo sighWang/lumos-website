@@ -46,6 +46,8 @@ interface ModalFormValues {
 }
 export const AddressToScript = () => {
   const [script, setScript] = useState<Script>();
+  const [newAddress, setNewAddress] = useState<Script>();
+  const [deprecatedAddress, setDeprecatedAddress] = useState<Script>();
   const [addressType, setAddressType] = useState<AddressType>();
   const validate = (values: ModalFormValues): ModalFormErrors => {
     const errors: ModalFormErrors = {};
@@ -71,6 +73,12 @@ export const AddressToScript = () => {
       try {
         let script = helpers.addressToScript(val.address);
         setScript(script);
+        let newAddress = helpers.encodeToAddress(script);
+        setNewAddress(newAddress);
+        let deprecatedAddress = helpers.generateAddress(script);
+        if(deprecatedAddress !== newAddress) {
+          setDeprecatedAddress(deprecatedAddress);
+        }
       } catch (e) {
         setFieldError("address", e.message);
         setAddressType(undefined);
@@ -111,6 +119,18 @@ export const AddressToScript = () => {
         </Form.Item>
       </Form>
       <Form name="scriptToAddress" className="resultForm">
+      <Form.Item label="Address(new full format)">
+          {newAddress && (
+            <Typography.Text copyable>{newAddress}</Typography.Text>
+          )}
+        </Form.Item>
+        {
+          deprecatedAddress &&
+          <Form.Item label="Address(deprecated)">
+              <Typography.Text copyable>{deprecatedAddress}</Typography.Text>
+          </Form.Item>
+        }
+        
         <Form.Item label="CodeHash">
           {script && script?.code_hash && (
             <Typography.Text copyable>{script?.code_hash}</Typography.Text>
