@@ -9,8 +9,7 @@ import { toConfigWithoutShortId } from "../helpers/configHelper";
 let config;
 let helpers;
 if (ExecutionEnvironment.canUseDOM) {
-  const lumos = require("../../static/lumos.min.js");
-  // const lumos = window.lumos;
+  const lumos = window.lumos;
   config = lumos.config;
   helpers = lumos.helpers;
 }
@@ -106,7 +105,7 @@ export const ScriptToAddress = () => {
         </Form.Item>
       </Form>
       <Form className="resultForm">
-        <p>Testnet</p>
+        <h4>Testnet</h4>
         <Form.Item label="Address(new full format)">
           {testNewFullAddr && (
             <Typography.Text copyable>{testNewFullAddr}</Typography.Text>
@@ -122,7 +121,8 @@ export const ScriptToAddress = () => {
             <Typography.Text copyable>{testnetAddress}</Typography.Text>
           )}
         </Form.Item>
-        <p>Mainnet</p>
+
+        <h4 style={{ marginTop: 15 }}>Mainnet</h4>
         <Form.Item label="Address(new full format)">
           {mainNewFullAddr && (
             <Typography.Text copyable>{mainNewFullAddr}</Typography.Text>
