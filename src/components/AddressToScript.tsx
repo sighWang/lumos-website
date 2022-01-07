@@ -4,6 +4,8 @@ import { useFormik } from "formik";
 import "antd/dist/antd.css";
 import styled from "styled-components";
 import ExecutionEnvironment from "@docusaurus/ExecutionEnvironment";
+import { toConfigWithoutShortId } from "../helpers/configHelper";
+
 let config;
 let helpers;
 declare global {
@@ -76,23 +78,7 @@ export const AddressToScript = () => {
         setScript(script);
 
         let configWithShortId = config.getConfig();
-        let configScripts = configWithShortId.SCRIPTS;
-        let newConfigScript = new Array();
-        for (let key in configScripts) {
-          const s = configScripts[key];
-          newConfigScript[key] = {
-            CODE_HASH: s.CODE_HASH,
-            HASH_TYPE: s.HASH_TYPE,
-            TX_HASH: s.TX_HASH,
-            INDEX: s.INDEX,
-            DEP_TYPE: s.DEP_TYPE,
-          };
-        }
-        let configWithoutShortId = {
-          CKB2019: true,
-          PREFIX: configWithShortId.PREFIX,
-          SCRIPTS: newConfigScript,
-        };
+        let configWithoutShortId = toConfigWithoutShortId(configWithShortId);
 
         let newAddress = helpers.encodeToAddress(script);
         setNewAddress(newAddress);
