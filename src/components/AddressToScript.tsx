@@ -89,6 +89,8 @@ export const AddressToScript = () => {
         let deprecatedAddress = helpers.generateAddress(script);
         if (deprecatedAddress !== newAddress) {
           setDeprecatedAddress(deprecatedAddress);
+        } else {
+          setDeprecatedAddress(undefined);
         }
       } catch (e) {
         setFieldError("address", e.message);

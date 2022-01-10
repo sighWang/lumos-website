@@ -35,9 +35,13 @@ export const ScriptToAddress = () => {
     async onSubmit(val) {
       config.initializeConfig(config.predefined.AGGRON4);
       const address = helpers.scriptToAddress(val);
-      setTestnetAddress(address);
       const newFullAddr = helpers.encodeToAddress(val);
       setTestNewFullAddr(newFullAddr);
+      if (address !== newFullAddr) {
+        setTestnetAddress(address);
+      } else {
+        setTestnetAddress(undefined);
+      }
 
       let configWithShortId = config.getConfig();
       let configWithoutShortId = toConfigWithoutShortId(configWithShortId);
@@ -49,9 +53,13 @@ export const ScriptToAddress = () => {
 
       config.initializeConfig(config.predefined.LINA);
       const mainnetAddress = helpers.scriptToAddress(val);
-      setMainnetAddress(mainnetAddress);
       const mainNewFullAddr = helpers.encodeToAddress(val);
       setMainNewFullAddr(mainNewFullAddr);
+      if (mainnetAddress !== mainNewFullAddr) {
+        setMainnetAddress(mainnetAddress);
+      } else {
+        setMainnetAddress(undefined);
+      }
 
       configWithShortId = config.getConfig();
       configWithoutShortId = toConfigWithoutShortId(configWithShortId);
@@ -116,11 +124,11 @@ export const ScriptToAddress = () => {
             <Typography.Text copyable>{testDepreFullAddr}</Typography.Text>
           )}
         </Form.Item>
-        <Form.Item label="Address(deprecated short format)">
-          {testnetAddress && (
+        {testnetAddress && (
+          <Form.Item label="Address(deprecated short format)">
             <Typography.Text copyable>{testnetAddress}</Typography.Text>
-          )}
-        </Form.Item>
+          </Form.Item>
+        )}
 
         <h4 style={{ marginTop: 15 }}>Mainnet</h4>
         <Form.Item label="Address(new full format)">
@@ -133,11 +141,11 @@ export const ScriptToAddress = () => {
             <Typography.Text copyable>{mainDepreFullAddr}</Typography.Text>
           )}
         </Form.Item>
-        <Form.Item label="Address(deprecated short format)">
-          {mainnetAddress && (
+        {mainnetAddress && (
+          <Form.Item label="Address(deprecated short format)">
             <Typography.Text copyable>{mainnetAddress}</Typography.Text>
-          )}
-        </Form.Item>
+          </Form.Item>
+        )}
       </Form>
     </StyleWrapper>
   );
