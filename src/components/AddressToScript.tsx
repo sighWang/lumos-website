@@ -4,6 +4,8 @@ import { useFormik } from "formik";
 import "antd/dist/antd.css";
 import styled from "styled-components";
 import ExecutionEnvironment from "@docusaurus/ExecutionEnvironment";
+import { toConfigWithoutShortId } from "../helpers/configHelper";
+
 let config;
 let helpers;
 declare global {
@@ -47,6 +49,7 @@ interface ModalFormValues {
 export const AddressToScript = () => {
   const [script, setScript] = useState<Script>();
   const [newAddress, setNewAddress] = useState<Script>();
+  const [deprecatedFullAddress, setDeprecateFullAddress] = useState<Script>();
   const [deprecatedAddress, setDeprecatedAddress] = useState<Script>();
   const [addressType, setAddressType] = useState<AddressType>();
   const validate = (values: ModalFormValues): ModalFormErrors => {
@@ -73,11 +76,21 @@ export const AddressToScript = () => {
       try {
         let script = helpers.addressToScript(val.address);
         setScript(script);
+
+        let configWithShortId = config.getConfig();
+        let configWithoutShortId = toConfigWithoutShortId(configWithShortId);
+
         let newAddress = helpers.encodeToAddress(script);
         setNewAddress(newAddress);
+        let deprecatedFullAddress = helpers.generateAddress(script, {
+          config: configWithoutShortId,
+        });
+        setDeprecateFullAddress(deprecatedFullAddress);
         let deprecatedAddress = helpers.generateAddress(script);
-        if(deprecatedAddress !== newAddress) {
+        if (deprecatedAddress !== newAddress) {
           setDeprecatedAddress(deprecatedAddress);
+        } else {
+          setDeprecatedAddress(undefined);
         }
       } catch (e) {
         setFieldError("address", e.message);
@@ -119,18 +132,22 @@ export const AddressToScript = () => {
         </Form.Item>
       </Form>
       <Form name="scriptToAddress" className="resultForm">
-      <Form.Item label="Address(new full format)">
+        <Form.Item label="Address(new full format)">
           {newAddress && (
             <Typography.Text copyable>{newAddress}</Typography.Text>
           )}
         </Form.Item>
-        {
-          deprecatedAddress &&
-          <Form.Item label="Address(deprecated)">
-              <Typography.Text copyable>{deprecatedAddress}</Typography.Text>
+        <Form.Item label="Address(deprecated full format)">
+          {deprecatedFullAddress && (
+            <Typography.Text copyable>{deprecatedFullAddress}</Typography.Text>
+          )}
+        </Form.Item>
+        {deprecatedAddress && (
+          <Form.Item label="Address(deprecated short format)">
+            <Typography.Text copyable>{deprecatedAddress}</Typography.Text>
           </Form.Item>
-        }
-        
+        )}
+
         <Form.Item label="CodeHash">
           {script && script?.code_hash && (
             <Typography.Text copyable>{script?.code_hash}</Typography.Text>
