@@ -1,24 +1,24 @@
 // @ts-check
 // Note: type annotations allow type checking and IDEs autocompletion
 
-const lightCodeTheme = require('prism-react-renderer/themes/github');
-const darkCodeTheme = require('prism-react-renderer/themes/dracula');
+const lightCodeTheme = require("prism-react-renderer/themes/github");
+const darkCodeTheme = require("prism-react-renderer/themes/dracula");
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'CKB lumos',
-  tagline: 'CKB lumos website',
-  url: 'https://github.com/nervosnetwork/lumos',
-  baseUrl: '/',
-  onBrokenLinks: 'throw',
-  onBrokenMarkdownLinks: 'warn',
-  favicon: 'img/favicon.ico',
-  organizationName: 'nervosnetwork', // Usually your GitHub org/user name.
-  projectName: 'ckb lumos', // Usually your repo name.
+  title: "CKB lumos",
+  tagline: "CKB lumos website",
+  url: "https://github.com/nervosnetwork/lumos",
+  baseUrl: "/",
+  onBrokenLinks: "throw",
+  onBrokenMarkdownLinks: "warn",
+  favicon: "img/favicon.ico",
+  organizationName: "nervosnetwork", // Usually your GitHub org/user name.
+  projectName: "ckb lumos", // Usually your repo name.
 
   presets: [
     [
-      '@docusaurus/preset-classic',
+      "@docusaurus/preset-classic",
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
         // docs: {
@@ -33,7 +33,7 @@ const config = {
         //     'https://github.com/facebook/docusaurus/edit/main/website/blog/',
         // },
         theme: {
-          customCss: require.resolve('./src/css/custom.css'),
+          customCss: require.resolve("./src/css/custom.css"),
         },
       }),
     ],
@@ -43,52 +43,62 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       navbar: {
-        title: 'CKB lumos',
+        title: "CKB lumos",
         logo: {
-          alt: 'CKB lumo',
-          src: 'img/logo.png',
+          alt: "CKB lumo",
+          src: "img/logo.png",
         },
         items: [
           {
-            position: 'left',
-            label: 'Tutorial',
-            href: 'https://cryptape.github.io/lumos-doc/docs/introduction/intro/'
+            type: "doc",
+            docId: "intro",
+            position: "left",
+            label: "Docs",
+          },
+          {
+            position: "left",
+            label: "Tutorial",
+            href: "https://cryptape.github.io/lumos-doc/docs/introduction/intro/",
           },
           // {to: '/blog', label: 'Blog', position: 'left'},
-          {to: '/tools', label: 'Tools', position: 'left'},
-          { href: 'https://nervosnetwork.github.io/lumos/globals.html', label: 'API', position: 'left'},
+          { to: "/tools", label: "Tools", position: "left" },
           {
-            href: 'https://github.com/nervosnetwork/lumos',
-            label: 'GitHub',
-            position: 'right',
+            href: "https://nervosnetwork.github.io/lumos/globals.html",
+            label: "API",
+            position: "left",
+          },
+          {
+            href: "https://github.com/nervosnetwork/lumos",
+            label: "GitHub",
+            position: "right",
           },
         ],
       },
       footer: {
-        style: 'dark',
+        style: "dark",
         links: [
           {
-            title: 'Docs',
+            title: "Docs",
             items: [
               {
-                label: 'Tutorial',
-                href: 'https://cryptape.github.io/lumos-doc/docs/introduction/intro/',
+                label: "Tutorial",
+                href: "https://cryptape.github.io/lumos-doc/docs/introduction/intro/",
               },
             ],
           },
           {
-            title: 'Community',
+            title: "Community",
             items: [
               {
-                label: 'Discord',
-                href: 'https://discordapp.com/invite/',
+                label: "Discord",
+                href: "https://discordapp.com/invite/",
               },
               {
-                label: 'Twitter',
-                href: 'https://twitter.com/NervosNetwork',
+                label: "Twitter",
+                href: "https://twitter.com/NervosNetwork",
               },
             ],
-          }
+          },
         ],
         copyright: `Copyright © ${new Date().getFullYear()}  Nervos Foundation. All Rights Reserved.`,
       },
