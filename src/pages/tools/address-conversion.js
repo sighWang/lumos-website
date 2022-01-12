@@ -1,6 +1,6 @@
 import React from "react";
 import { Address } from '../../components/Address'
-import { Sidebar } from '../../components/sidebar'
+import { Sidebar } from '../../components/Sidebar'
 import Layout from "@theme/Layout";
 
 export default function Tools() {

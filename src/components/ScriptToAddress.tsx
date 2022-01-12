@@ -9,7 +9,6 @@ import { toConfigWithoutShortId } from "../helpers/configHelper";
 let config;
 let helpers;
 if (ExecutionEnvironment.canUseDOM) {
-  // const lumos = require("../../static/lumos.min.js");
   const lumos = window.lumos;
   config = lumos.config;
   helpers = lumos.helpers;
