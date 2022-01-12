@@ -61,7 +61,7 @@ const config = {
             href: "https://cryptape.github.io/lumos-doc/docs/introduction/intro/",
           },
           // {to: '/blog', label: 'Blog', position: 'left'},
-          { to: "/tools", label: "Tools", position: "left" },
+          { to: "/tools/address-conversion", label: "Tools", position: "left" },
           {
             href: "https://nervosnetwork.github.io/lumos/globals.html",
             label: "API",

@@ -1,4 +1,4 @@
 {
-    "extends": "@tsconfig/docusaurus/tsconfig.json",
-    "include": ["src/", "src/components/ScriptToAddress.tsx"]
-  }
+  "extends": "@tsconfig/docusaurus/tsconfig.json",
+  "include": ["src/", "src/components/ScriptToAddress.tsx"]
+}
