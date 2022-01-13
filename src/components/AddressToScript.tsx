@@ -14,8 +14,7 @@ declare global {
   }
 }
 if (ExecutionEnvironment.canUseDOM) {
-  require("../../static/lumos.min.js");
-  const lumos = window.lumos;
+  const lumos = require("@ckb-lumos/lumos");
   config = lumos.config;
   helpers = lumos.helpers;
 }
